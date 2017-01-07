@@ -1,0 +1,11 @@
+New Blanket
+
+<%= form_for @blanket do |f| %>
+  <%= f.label :name %>: <%= f.text_field :name %><br />
+  <%= f.label :start_date %>: <%= f.date_field :start_date %><br />
+  <%= f.label :end_date %>: <%= f.date_field :end_date %><br />
+  <%= f.label :latitude %>: <%= f.text_field :latitude %><br />
+  <%= f.label :longitude %>: <%= f.text_field :longitude %><br />
+
+  <%= f.submit %>
+<% end %>
