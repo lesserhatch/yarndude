@@ -1,11 +1,51 @@
+<style>
+  /* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+  #map {
+    height: 200px;
+  }
+</style>
+
 New Blanket
 
 <%= form_for @blanket do |f| %>
   <%= f.label :name %>: <%= f.text_field :name %><br />
   <%= f.label :start_date %>: <%= f.date_field :start_date %><br />
   <%= f.label :end_date %>: <%= f.date_field :end_date %><br />
+
+  <%= label_tag :address %>: <%= text_field_tag :address %>
+
+  <div id="map"></div>
+
   <%= f.label :latitude %>: <%= f.text_field :latitude %><br />
   <%= f.label :longitude %>: <%= f.text_field :longitude %><br />
 
   <%= f.submit %>
 <% end %>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnHesRk1A8VGL-1xLgbgeSR2IZzcjcLvs&libraries=places&callback=initMap" async defer>
+</script>
+<%= javascript_include_tag 'jquery.geocomplete.min' %>
+
+<script>
+  function initMap() {
+    $("#address").geocomplete({
+      map: "#map",
+      mapOptions: {
+        center: new google.maps.LatLng(36.1538, -95.9925),
+        zoom: 5
+      },
+      markerOptions: {
+        draggable: true
+      }
+    })
+    .bind("geocode:result", function(event, result){
+      $("#blanket_latitude").val(result.geometry.location.lat());
+      $("#blanket_longitude").val(result.geometry.location.lng());
+    })
+    .bind("geocode:dragged", function(event, latLng){
+      $("#blanket_latitude").val(latLng.lat());
+      $("#blanket_longitude").val(latLng.lng());
+    });
+  }
+</script>
