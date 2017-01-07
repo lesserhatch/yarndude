@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  blanket: one
+  high_temperature: 9.99
+  low_temperature: 9.99
+
+two:
+  blanket: two
+  high_temperature: 9.99
+  low_temperature: 9.99
