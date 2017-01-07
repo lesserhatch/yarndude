@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107021928) do
+ActiveRecord::Schema.define(version: 20170107045028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,16 @@ ActiveRecord::Schema.define(version: 20170107021928) do
     t.decimal  "longitude",  precision: 10, scale: 6
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "timezone"
   end
 
   create_table "days", force: :cascade do |t|
     t.integer  "blanket_id"
-    t.decimal  "high_temperature"
-    t.decimal  "low_temperature"
+    t.integer  "high_temperature"
+    t.integer  "low_temperature"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.date     "date"
     t.index ["blanket_id"], name: "index_days_on_blanket_id", using: :btree
   end
 
