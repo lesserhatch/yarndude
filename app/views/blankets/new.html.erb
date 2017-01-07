@@ -10,15 +10,16 @@ New Blanket
 
 <%= form_for @blanket do |f| %>
   <%= f.label :name %>: <%= f.text_field :name %><br />
+  <%= f.label :email %>: <%= f.email_field :email %><br />
   <%= f.label :start_date %>: <%= f.date_field :start_date %><br />
   <%= f.label :end_date %>: <%= f.date_field :end_date %><br />
-
-  <%= label_tag :address %>: <%= text_field_tag :address %>
+  <%= f.label :address %>: <%= f.text_field :address %>
 
   <div id="map"></div>
 
-  <%= f.label :latitude %>: <%= f.text_field :latitude %><br />
-  <%= f.label :longitude %>: <%= f.text_field :longitude %><br />
+  <%= f.hidden_field :custom_coordinates, value: false %>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
 
   <%= f.submit %>
 <% end %>
@@ -29,7 +30,7 @@ New Blanket
 
 <script>
   function initMap() {
-    $("#address").geocomplete({
+    $("#blanket_address").geocomplete({
       map: "#map",
       mapOptions: {
         center: new google.maps.LatLng(36.1538, -95.9925),
@@ -42,10 +43,12 @@ New Blanket
     .bind("geocode:result", function(event, result){
       $("#blanket_latitude").val(result.geometry.location.lat());
       $("#blanket_longitude").val(result.geometry.location.lng());
+      $("#blanket_custom_coordinates").val(false);
     })
     .bind("geocode:dragged", function(event, latLng){
       $("#blanket_latitude").val(latLng.lat());
       $("#blanket_longitude").val(latLng.lng());
+      $("#blanket_custom_coordinates").val(true);
     });
   }
 </script>

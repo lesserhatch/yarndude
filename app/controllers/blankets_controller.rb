@@ -20,7 +20,7 @@ class BlanketsController < ApplicationController
   private
 
   def blanket_params
-    params.require(:blanket).permit(:name, :start_date, :end_date, :latitude, :longitude)
+    params.require(:blanket).permit(:name, :email, :start_date, :end_date, :address, :custom_coordinates, :latitude, :longitude)
   end
 
 end
