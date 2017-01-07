@@ -14,6 +14,7 @@ class BlanketsController < ApplicationController
   end
 
   def show
+    @blanket = Blanket.find(params[:id])
   end
 
   private

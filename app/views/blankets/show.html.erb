@@ -1,0 +1,15 @@
+<h1><%= @blanket.name %></h1>
+<table>
+  <tr>
+    <td>Date</td>
+    <td>Low (F)</td>
+    <td>High (F)</td>
+  </tr>
+  <% @blanket.days.each do |day| %>
+    <tr>
+      <td><%= day.date %></td>
+      <td><%= day.low_temperature %></td>
+      <td><%= day.high_temperature %></td>
+    </tr>
+  <% end %>
+</table>
