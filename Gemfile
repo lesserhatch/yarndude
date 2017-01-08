@@ -38,8 +38,8 @@ gem 'jbuilder', '~> 2.5'
 # Darksky for temperature data
 gem 'forecast_io'
 
-# Google Timezone Info
-gem 'timezone', '~> 1.0'
+# Timezone data
+gem 'timezone_finder'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

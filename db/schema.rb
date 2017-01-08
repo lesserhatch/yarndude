@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107145234) do
+ActiveRecord::Schema.define(version: 20170107223133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20170107145234) do
     t.string   "timezone"
     t.string   "address"
     t.boolean  "custom_coordinates"
+    t.boolean  "ready"
+    t.integer  "utc_offset"
   end
 
   create_table "days", force: :cascade do |t|

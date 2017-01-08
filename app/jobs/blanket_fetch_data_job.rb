@@ -2,9 +2,8 @@ class BlanketFetchDataJob < ApplicationJob
   queue_as :default
 
   def perform(blanket)
-    timezone = Timezone.lookup(blanket.latitude, blanket.longitude)
-    blanket.timezone = timezone.name
-    blanket.save
+    @blanket.timezone = MyTimezoneFinder.timezone_at(@blanket.longitude, @blanket.latitude)
+    @blanket.save
 
     Time.zone = blanket.timezone
 

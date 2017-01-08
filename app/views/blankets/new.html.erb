@@ -8,6 +8,14 @@
 
 New Blanket
 
+<% if @blanket.errors.any? %>
+<ul>
+  <% @blanket.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+
 <%= form_for @blanket do |f| %>
   <%= f.label :name %>: <%= f.text_field :name %><br />
   <%= f.label :email %>: <%= f.email_field :email %><br />
@@ -20,6 +28,7 @@ New Blanket
   <%= f.hidden_field :custom_coordinates, value: false %>
   <%= f.hidden_field :latitude %>
   <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :utc_offset %>
 
   <%= f.submit %>
 <% end %>
@@ -43,6 +52,7 @@ New Blanket
     .bind("geocode:result", function(event, result){
       $("#blanket_latitude").val(result.geometry.location.lat());
       $("#blanket_longitude").val(result.geometry.location.lng());
+      $("#blanket_utc_offset").val(result.utc_offset);
       $("#blanket_custom_coordinates").val(false);
     })
     .bind("geocode:dragged", function(event, latLng){

@@ -8,9 +8,12 @@ class BlanketsController < ApplicationController
 
   def create
     @blanket = Blanket.new(blanket_params)
-    @blanket.save
 
-    redirect_to @blanket
+    if @blanket.save
+      redirect_to @blanket
+    else
+      render :new
+    end
   end
 
   def show
@@ -20,7 +23,16 @@ class BlanketsController < ApplicationController
   private
 
   def blanket_params
-    params.require(:blanket).permit(:name, :email, :start_date, :end_date, :address, :custom_coordinates, :latitude, :longitude)
+    params.require(:blanket).permit(
+      :name,
+      :email,
+      :start_date,
+      :end_date,
+      :address,
+      :custom_coordinates,
+      :latitude,
+      :longitude,
+      :utc_offset)
   end
 
 end
