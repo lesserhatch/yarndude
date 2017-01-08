@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :blankets, only: [:index, :new, :create, :show]
+  root 'index#index'
+
+  # resource :blankets, as: 'temperatureblanket', only: [:index, :new, :create, :show]
+  get 'temperature-blanket', to: 'blankets#index', as: :blankets
+  get 'temperature-blanket/new', to: 'blankets#new', as: :new_blanket
+  post 'temperature-blanket', to: 'blankets#create', as: :create_blanket
+  get 'temperature-blanket/:slug', to: 'blankets#show', as: :blanket
+
 end

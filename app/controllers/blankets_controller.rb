@@ -1,5 +1,6 @@
 class BlanketsController < ApplicationController
   def index
+    redirect_to action: 'new'
   end
 
   def new
@@ -11,14 +12,14 @@ class BlanketsController < ApplicationController
 
     if @blanket.save
       BlanketFetchDataJob.perform_later @blanket
-      redirect_to action: 'show', id: @blanket.slug
+      redirect_to action: 'show', slug: @blanket.slug
     else
       render :new
     end
   end
 
   def show
-    @blanket = Blanket.find_by_slug(params[:id])
+    @blanket = Blanket.find_by_slug(params[:slug])
   end
 
   private
