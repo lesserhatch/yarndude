@@ -1,18 +1,22 @@
 <h1><%= @blanket.name %></h1>
 <% if @blanket.ready %>
-  <table>
-    <tr>
-      <td>Date</td>
-      <td>Low (F)</td>
-      <td>High (F)</td>
-    </tr>
-    <% @blanket.days.each do |day| %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= day.date %></td>
-        <td><%= day.low_temperature %></td>
-        <td><%= day.high_temperature %></td>
+        <th>Date</th>
+        <th>Low (F)</th>
+        <th>High (F)</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @blanket.days.each do |day| %>
+        <tr>
+          <td><%= day.date %></td>
+          <td><%= day.low_temperature %></td>
+          <td><%= day.high_temperature %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 <% else %>
   <p>We're still gathering data...</p>
