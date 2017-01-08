@@ -11,14 +11,14 @@ class BlanketsController < ApplicationController
 
     if @blanket.save
       BlanketFetchDataJob.perform_later @blanket
-      redirect_to @blanket
+      redirect_to action: 'show', id: @blanket.slug
     else
       render :new
     end
   end
 
   def show
-    @blanket = Blanket.find(params[:id])
+    @blanket = Blanket.find_by_slug(params[:id])
   end
 
   private

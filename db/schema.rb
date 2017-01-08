@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107223133) do
+ActiveRecord::Schema.define(version: 20170108042559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20170107223133) do
     t.boolean  "custom_coordinates"
     t.boolean  "ready"
     t.integer  "utc_offset"
+    t.string   "slug"
+    t.index ["slug"], name: "index_blankets_on_slug", unique: true, using: :btree
   end
 
   create_table "days", force: :cascade do |t|
