@@ -41,6 +41,9 @@ gem 'forecast_io'
 # Timezone data
 gem 'timezone_finder'
 
+# Bootstrap
+gem 'bootstrap', '~> 4.0.0.alpha6'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
