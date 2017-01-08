@@ -10,6 +10,7 @@ class BlanketsController < ApplicationController
     @blanket = Blanket.new(blanket_params)
 
     if @blanket.save
+      BlanketFetchDataJob.perform_later @blanket
       redirect_to @blanket
     else
       render :new

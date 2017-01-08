@@ -3,6 +3,7 @@ class Blanket < ApplicationRecord
   validates :email, :latitude, :longitude, :start_date, :end_date, presence: true
   validate :end_date_cannot_be_in_the_future
   validate :start_date_is_before_end_date
+  validate :dates_cannot_span_more_than_one_year
 
   def is_data_complete?
     # Force a data load and check if it is
@@ -25,6 +26,12 @@ class Blanket < ApplicationRecord
   def start_date_is_before_end_date
     if self.start_date > self.end_date
       errors.add(:start_date, "can't be before end date")
+    end
+  end
+
+  def dates_cannot_span_more_than_one_year
+    if self.end_date > self.start_date.next_year
+      errors.add(:end_date, "can't be more than a year")
     end
   end
 

@@ -2,8 +2,8 @@ class BlanketFetchDataJob < ApplicationJob
   queue_as :default
 
   def perform(blanket)
-    @blanket.timezone = MyTimezoneFinder.timezone_at(@blanket.longitude, @blanket.latitude)
-    @blanket.save
+    blanket.timezone = MyTimezoneFinder.timezone_at(blanket.longitude, blanket.latitude)
+    blanket.save
 
     Time.zone = blanket.timezone
 
@@ -23,6 +23,11 @@ class BlanketFetchDataJob < ApplicationJob
         sleep 5
         retry if (retries += 1) < 3
       end
+    end
+
+    if blanket.is_data_complete?
+      blanket.ready = true
+      blanket.save
     end
   end
 end
