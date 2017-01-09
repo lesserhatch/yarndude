@@ -18,6 +18,10 @@ class Blanket < ApplicationRecord
     (expected_dates == received_dates)
   end
 
+  def paid?
+    not (self.customer_id.nil? && self.charge_id.nil?)
+  end
+
   private
 
   def end_date_cannot_be_in_the_future

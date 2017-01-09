@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   get 'temperature-blanket/new', to: 'blankets#new', as: :new_blanket
   post 'temperature-blanket', to: 'blankets#create', as: :create_blanket
   get 'temperature-blanket/:slug', to: 'blankets#show', as: :blanket
+  get 'temperature-blanket/:slug/checkout', to: 'blankets#checkout', as: :blanket_checkout
+  post 'temperature-blanket/:slug/pay', to: 'blankets#pay', as: :blanket_pay
 
 end
