@@ -1,19 +1,24 @@
 <h1><%= @blanket.name %></h1>
 <% if @blanket.ready %>
+  <% if @units == :farhenheit %>
+    <%= link_to 'Show as Celsius', blanket_path(slug: @blanket.slug, units: 'celsius') %>
+  <% else %>
+    <%= link_to 'Show as Farhenheit', blanket_path(slug: @blanket.slug, units: 'farhenheit') %>
+  <% end %>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Date</th>
-        <th>Low (F)</th>
-        <th>High (F)</th>
+        <th>Low (<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
+        <th>High (<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
       </tr>
     </thead>
     <tbody>
       <% @blanket.days.each do |day| %>
         <tr>
           <td><%= day.date %></td>
-          <td><%= day.low_temperature %></td>
-          <td><%= day.high_temperature %></td>
+          <td><%= @units == :farhenheit ? day.low_temperature : ((day.low_temperature - 32) * 5.0 / 9.0).to_i %></td>
+          <td><%= @units == :farhenheit ? day.high_temperature : ((day.high_temperature - 32) * 5.0 / 9.0).to_i %></td>
         </tr>
       <% end %>
     </tbody>

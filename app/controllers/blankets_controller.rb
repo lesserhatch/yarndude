@@ -19,6 +19,10 @@ class BlanketsController < ApplicationController
 
   def show
     @blanket = Blanket.find_by_slug(params[:slug])
+
+    @units = params[:units].present? ? params[:units].to_sym : :farhenheit
+    @units = :farhenheit unless [:farhenheit, :celsius].include? @units
+
     redirect_to action: 'checkout', slug: @blanket.slug unless @blanket.paid?
   end
 
