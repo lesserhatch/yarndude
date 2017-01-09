@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   get 'temperature-blanket/:slug/checkout', to: 'blankets#checkout', as: :blanket_checkout
   post 'temperature-blanket/:slug/pay', to: 'blankets#pay', as: :blanket_pay
 
+  namespace :admin do
+    resources :blankets
+  end
+
 end

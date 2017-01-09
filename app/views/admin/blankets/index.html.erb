@@ -1,0 +1,18 @@
+<h1>Admin::Blankets</h1>
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @blankets.each do |b| %>
+    <tr>
+      <td><%= link_to b.id, admin_blanket_path(b) %></td>
+      <td><%= b.name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @blankets, theme: 'twitter-bootstrap-4' %>
