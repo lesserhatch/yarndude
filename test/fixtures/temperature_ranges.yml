@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  palette: one
+  yarn: one
+  low_temperature: 1
+  high_temperature: 1
+
+two:
+  palette: two
+  yarn: two
+  low_temperature: 1
+  high_temperature: 1

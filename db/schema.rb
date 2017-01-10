@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109182837) do
+ActiveRecord::Schema.define(version: 20170110033949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,5 +52,30 @@ ActiveRecord::Schema.define(version: 20170109182837) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "palettes", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "temperature_ranges", force: :cascade do |t|
+    t.integer  "palette_id"
+    t.integer  "yarn_id"
+    t.integer  "low_temperature"
+    t.integer  "high_temperature"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["palette_id"], name: "index_temperature_ranges_on_palette_id", using: :btree
+    t.index ["yarn_id"], name: "index_temperature_ranges_on_yarn_id", using: :btree
+  end
+
+  create_table "yarns", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "days", "blankets"
+  add_foreign_key "temperature_ranges", "palettes"
+  add_foreign_key "temperature_ranges", "yarns"
 end
