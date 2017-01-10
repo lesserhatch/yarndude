@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   post 'temperature-blanket/:slug/pay', to: 'blankets#pay', as: :blanket_pay
 
   namespace :admin do
+    get 'login', to: 'logins#new'
+    post 'login', to: 'logins#create'
+    get 'logout', to: 'logins#destroy'
     resources :blankets
   end
 
