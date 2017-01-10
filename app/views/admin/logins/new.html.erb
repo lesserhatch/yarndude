@@ -1,5 +1,5 @@
-<h1>Login</h1>
-<%= form_tag admin_login_path do %>
+<%= form_tag admin_login_path, class: 'form-signin' do %>
+  <h2 class='form-signin-heading'>Login</h1>
   <div class="form-group">
     <%= label_tag :email, 'Email' %>
     <%= email_field_tag :email, @manager.email, {'class' => 'form-control'} %>

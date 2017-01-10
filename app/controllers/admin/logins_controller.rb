@@ -1,7 +1,9 @@
 class Admin::LoginsController < AdminController
   skip_before_action :require_login, only: [:new, :create]
+  layout 'admin_login'
 
   def new
+    redirect_to admin_blankets_path if logged_in?
     @manager = Manager.new
   end
 
