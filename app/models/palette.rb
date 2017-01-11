@@ -1,5 +1,6 @@
 class Palette < ApplicationRecord
   has_many :temperature_ranges
+  has_many :yarns, through: :temperature_ranges
 
   def find_yarn_by_temperature(temperature)
     self.temperature_ranges.each do |temperature_range|

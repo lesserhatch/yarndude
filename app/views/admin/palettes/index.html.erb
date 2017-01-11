@@ -1,0 +1,23 @@
+<div class="row">
+  <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <%= render partial: 'sidebar', locals: {active: :palettes} %>
+  </nav>
+  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <h1>Palettes</h1>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @palettes.each do |p| %>
+        <tr>
+          <td><%= link_to p.name, admin_palette_path(p) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @palettes, theme: 'twitter-bootstrap-4' %>
+  </main>
+</div>
