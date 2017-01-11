@@ -19,6 +19,12 @@ class Admin::BlanketsController < AdminController
     redirect_to admin_blankets_path
   end
 
+  def restart_fetch_data_job
+    @blanket = Blanket.find(params[:id])
+    BlanketFetchDataJob.perform_later @blanket
+    redirect_to admin_blanket_path @blanket
+  end
+
   def refund
     @blanket = Blanket.find(params[:id])
     @refund =  Stripe::Refund.create(charge: @blanket.charge_id)

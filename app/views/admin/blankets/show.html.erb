@@ -22,6 +22,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><%= link_to_unless @blanket.slug.blank?, 'Show blanket on public site', blanket_path({slug: @blanket.slug}), class: 'card-link' %></li>
             <li class="list-group-item"><%= link_to 'Edit blanket', edit_admin_blanket_path(@blanket), class: 'card-link' %></li>
+            <li class="list-group-item"><%= link_to 'Restart job', admin_restart_blanket_job_path(@blanket), class: 'card-link' %></li>
             <li class="list-group-item"><%= link_to 'Delete blanket and associated data', admin_blanket_path(@blanket), method: :delete, class: 'card-link', data: { confirm: 'Are you sure?' } %></li>
           </ul>
         </div>

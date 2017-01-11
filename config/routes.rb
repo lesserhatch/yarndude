@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'logout', to: 'logins#destroy'
     resources :blankets
     get 'blankets/:id/refund', to: 'blankets#refund', as: :refund_blanket
+    get 'blankets/:id/restart_job', to: 'blankets#restart_fetch_data_job', as: :restart_blanket_job
   end
 
 end
