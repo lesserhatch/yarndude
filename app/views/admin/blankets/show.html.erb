@@ -54,5 +54,23 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card mb-3">
+          <div class="card-block">
+            <h4 class="card-title">Days</h4>
+            <table class="table">
+              <% @blanket.days.order(date: :asc).each do |day| %>
+                <tr>
+                  <td><%= day.date %></td>
+                  <td><%= day.low_temperature %></td>
+                  <td><%= day.high_temperature %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
