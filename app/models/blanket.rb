@@ -1,5 +1,5 @@
 class Blanket < ApplicationRecord
-  has_many :days
+  has_many :days, dependent: :destroy
   validates :email, :latitude, :longitude, :start_date, :end_date, presence: true
   validate :end_date_cannot_be_in_the_future
   validate :start_date_is_before_end_date
@@ -20,6 +20,16 @@ class Blanket < ApplicationRecord
 
   def paid?
     not (self.customer_id.nil? && self.charge_id.nil?)
+  end
+
+  def get_charge
+    return nil if self.charge_id.nil?
+
+    begin
+      Stripe::Charge.retrieve self.charge_id
+    rescue Stripe::InvalidRequestError => e
+      nil
+    end
   end
 
   private

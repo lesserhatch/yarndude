@@ -1,18 +1,31 @@
-<h1>Blankets</h1>
-<table class="table table-sm table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @blankets.each do |b| %>
-    <tr>
-      <td><%= link_to b.id, admin_blanket_path(b) %></td>
-      <td><%= b.name %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @blankets, theme: 'twitter-bootstrap-4' %>
+<div class="row">
+  <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <%= render partial: 'sidebar', locals: {active: :blankets} %>
+  </nav>
+  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <h1>Blankets</h1>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Paid</th>
+          <th>Refunded</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @blankets.each do |b| %>
+        <tr>
+          <td><%= link_to b.id, admin_blanket_path(b) %></td>
+          <td><%= b.name %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @blankets, theme: 'twitter-bootstrap-4' %>
+  </main>
+</div>
