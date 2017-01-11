@@ -1,6 +1,6 @@
 class Admin::BlanketsController < AdminController
   def index
-    @blankets = Blanket.all.page(params[:page])
+    @blankets = Blanket.order(created_at: :desc).page(params[:page])
   end
 
   def show

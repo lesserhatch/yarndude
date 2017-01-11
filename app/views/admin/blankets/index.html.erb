@@ -7,7 +7,6 @@
     <table class="table table-sm table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>Amount</th>
           <th>Paid</th>
@@ -17,8 +16,7 @@
       <tbody>
         <% @blankets.each do |b| %>
         <tr>
-          <td><%= link_to b.id, admin_blanket_path(b) %></td>
-          <td><%= b.name %></td>
+          <td><%= link_to b.name, admin_blanket_path(b) %></td>
           <td></td>
           <td></td>
           <td></td>
