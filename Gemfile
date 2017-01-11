@@ -12,6 +12,8 @@ gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 # Use Passenger as the app server
 gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
+# Use Sidekiq for background work
+gem 'sidekiq'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
