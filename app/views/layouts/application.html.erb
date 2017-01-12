@@ -10,21 +10,14 @@
   </head>
 
   <body>
-    <div class="container">
-      <nav class="navbar navbar-light bg-faded rounded navbar-toggleable-md">
+      <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-3">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#containerNavbar" aria-controls="containerNavbar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <%= link_to Rails.application.config.site_name, root_path, class: 'navbar-brand' %>
-        <div class="collapse navbar-collapse" id="containerNavbar">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <%= link_to 'Temperature Blanket', new_blanket_path, class: 'nav-link' %>
-            </li>
-          </ul>
-        </div>
       </nav>
+      <div class="container">
       <%= yield %>
-    </div>
+      </div>
   </body>
 </html>

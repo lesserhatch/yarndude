@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # resource :blankets, as: 'temperatureblanket', only: [:index, :new, :create, :show]
   get 'temperature-blanket', to: 'blankets#index', as: :blankets
   get 'temperature-blanket/new', to: 'blankets#new', as: :new_blanket
+  post 'temperature-blanket/find', to: 'blankets#index', as: :find_blankets
   post 'temperature-blanket', to: 'blankets#create', as: :create_blanket
   get 'temperature-blanket/:slug', to: 'blankets#show', as: :blanket
   get 'temperature-blanket/:slug/checkout', to: 'blankets#checkout', as: :blanket_checkout
