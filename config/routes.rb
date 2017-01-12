@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
     # Palettes resources
     resources :palettes
+
+    # Yarns resources
+    resources :yarns
   end
 
 end

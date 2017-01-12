@@ -1,0 +1,25 @@
+<div class="row">
+  <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <%= render partial: 'sidebar', locals: {active: :yarns} %>
+  </nav>
+  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <h1>Yarn</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card mb-3">
+          <div class="card-block">
+            <h4 class="card-title">Details</h4>
+            <dl>
+              <dt>Name</dt>
+              <dd><%= @yarn.name %></dd>
+            </dl>
+            <p class="card-text"><small class="text-muted">Created <%= time_ago_in_words @yarn.created_at %> ago</small></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><%= link_to 'Edit yarn', edit_admin_yarn_path(@yarn), class: 'card-link' %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
