@@ -6,6 +6,31 @@ class Blanket < ApplicationRecord
   validate :dates_cannot_span_more_than_one_year
   before_create :generate_slug
 
+  def fetched_dates
+    # Return a Set of the all the days fetched
+    self.days.inject(Set.new []) { |dates, day| dates << day.date }
+  end
+
+  def fetch_date(date)
+    # Validate the date we are about to fetch
+    return nil unless date.between?(self.start_date, self.end_date)
+
+    # Set the timezone to the blanket's timezone
+    Time.zone = self.timezone
+    forecast = ForecastIO.forecast(self.latitude,
+                                   self.longitude,
+                                   time: Time.zone.parse(date.to_s).to_i)
+
+    # Record the weather information for the day
+    day = self.days.new
+    day.date = date
+    day.high_temperature = forecast.daily.data[0].temperatureMax
+    day.low_temperature  = forecast.daily.data[0].temperatureMin
+
+    # Return the day if it saved correctly
+    day.save ? day : nil
+  end
+
   def is_data_complete?
     # Force a data load and check if it is
     # empty before trying to check for all
@@ -14,7 +39,7 @@ class Blanket < ApplicationRecord
     return false if days.empty?
 
     expected_dates = Set.new (self.start_date .. self.end_date )
-    received_dates = days.inject(Set.new []) { |dates, day| dates << day.date }
+    received_dates = fetched_dates
     (expected_dates == received_dates)
   end
 
