@@ -1,9 +1,8 @@
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
-      <h3 class="card-header">Temperature Blanket</h3>
       <div class="card-block">
-        <h6 class="card-subtitle mb-2 text-muted">Create a custom temperature blanket pattern</h6>
+        <h5 class="card-subtitle text-muted mb-2">Temperature Blanket Pattern <span class="ml-1 text-primary"><strong>$5.00</strong></span></h6>
         <p class="card-text">Get a customized temperature blanket pattern based on your location. <%= Rails.application.config.site_name.capitalize %> will automatically gather past temperature data for your location so you don't have to look up every single day.</p>
         <%= link_to 'Create Your Pattern', new_blanket_path, class: 'btn btn-primary' %>
         <%= link_to 'View Examples', new_blanket_path, class: 'btn btn-secondary' %>
@@ -12,9 +11,8 @@
   </div>
   <div class="col-sm-6">
     <div class="card">
-      <h3 class="card-header">Sign In</h3>
       <div class="card-block">
-        <h6 class="card-subtitle mb-2 text-muted">Sign in to retrieve your blanket patterns</h6>
+        <h5 class="card-subtitle mb-2 text-muted">Sign in to retrieve your blanket patterns</h6>
         <%= form_tag find_blankets_path do %>
           <div class="form-group">
             <%= label_tag :email, 'Email' %>
