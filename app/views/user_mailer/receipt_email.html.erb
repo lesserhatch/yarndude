@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Receipt for <%= @blanket.name %></h1>
+    <p>
+      Thank you for purchasing a temperature blanket pattern from <%= Rails.application.config.site_name %>.
+    </p>
+    <p>
+      We are gathering all of the temperature data as quickly as possible. You will
+      receive another email when your blanket pattern is ready. You will be able to
+      view your blanket at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>.
+    </p>
+    <p>Thanks for using <%= Rails.application.config.site_name %> and have a great day!</p>
+    <p>Seth Charles</p>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+<h1><%= @blanket.name %> is ready!</h1>
+<p>
+  You can view your custom blanket pattern at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>.
+</p>
+<p>Thanks again for using <%= Rails.application.config.site_name %> and have a great day!</p>
+<p>Seth Charles</p>

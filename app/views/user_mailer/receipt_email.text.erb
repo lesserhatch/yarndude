@@ -1,0 +1,12 @@
+Receipt for <%= @blanket.name %>
+===============================================
+
+Thank you for purchasing a temperature blanket pattern from <%= Rails.application.config.site_name %>.
+
+We are gathering all of the temperature data as quickly as possible. You will
+receive another email when your blanket pattern is ready. You will be able to
+view your blanket at <%= blanket_url(slug: @blanket.slug) %>.
+
+Thanks for using <%= Rails.application.config.site_name %> and have a great day!
+
+Seth Charles

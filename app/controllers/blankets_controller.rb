@@ -60,6 +60,7 @@ class BlanketsController < ApplicationController
       @blanket.charge_id = charge.id
       @blanket.save
 
+      UserMailer.receipt_email(@blanket).deliver_later
       BlanketFetchDataJob.perform_later @blanket
     end
 

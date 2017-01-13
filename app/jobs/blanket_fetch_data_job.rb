@@ -28,6 +28,7 @@ class BlanketFetchDataJob < ApplicationJob
     if blanket.is_data_complete?
       blanket.ready = true
       blanket.save
+      UserMailer.ready_email(blanket).deliver_later
     end
   end
 end
