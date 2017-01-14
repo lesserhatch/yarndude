@@ -11,7 +11,8 @@ class BlanketsController < ApplicationController
     @blanket = Blanket.new(blanket_params)
 
     if @blanket.save
-      redirect_to action: 'checkout', slug: @blanket.slug
+      BlanketFetchDataJob.perform_later(@blanket, 10)
+      redirect_to blanket_path(slug: @blanket.slug)
     else
       render :new
     end
@@ -23,13 +24,6 @@ class BlanketsController < ApplicationController
 
     @units = params[:units].present? ? params[:units].to_sym : :farhenheit
     @units = :farhenheit unless [:farhenheit, :celsius].include? @units
-
-    redirect_to action: 'checkout', slug: @blanket.slug unless @blanket.paid?
-  end
-
-  def checkout
-    @blanket = Blanket.find_by_slug(params[:slug])
-    redirect_to action: 'show', slug: @blanket.slug if @blanket.paid?
   end
 
   def pay
@@ -68,7 +62,7 @@ class BlanketsController < ApplicationController
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    redirect_to action: 'checkout', slug: @blanket.slug
+    redirect_to blanket_path(slug: @blanket.slug)
   end
 
   private

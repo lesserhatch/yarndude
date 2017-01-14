@@ -1,30 +1,96 @@
-<h1><%= @blanket.name %></h1>
-<% if @blanket.ready %>
-  <% if @units == :farhenheit %>
-    <%= link_to 'Show as Celsius', blanket_path(slug: @blanket.slug, units: 'celsius') %>
-  <% else %>
-    <%= link_to 'Show as Farhenheit', blanket_path(slug: @blanket.slug, units: 'farhenheit') %>
-  <% end %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Low (<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
-        <th>High (<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
-        <th>Yarn</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @blanket.days.order(date: :asc).each do |day| %>
-        <tr>
-          <td><%= day.date %></td>
-          <td><%= @units == :farhenheit ? day.low_temperature : ((day.low_temperature - 32) * 5.0 / 9.0).to_i %></td>
-          <td><%= @units == :farhenheit ? day.high_temperature : ((day.high_temperature - 32) * 5.0 / 9.0).to_i %></td>
-          <td><%= @palette.find_yarn_by_temperature(day.high_temperature).try(:name) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>We're still gathering data...</p>
-<% end %>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card mb-3">
+      <div class="card-block">
+        <h4 class="card-title">Instructions</h4>
+        <h6 class="card-subtitle mb-2 text-muted">Blanket: <%= @blanket.name %></h6>
+        <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>.</p>
+        <% unless @blanket.paid? %>
+        <p class="card-text">The pattern shown is a preview. Please use the checkout button below to get the the full temperature blanket pattern. Your purchase helps to cover the cost of the servers and temperature data used to generate your pattern.</p>
+        <%= button_tag 'Unlock Full Pattern', id: 'checkout_btn', class: 'btn btn-primary' %>
+          <%= form_tag blanket_pay_path(@blanket.slug), id: 'stripeForm' do %>
+            <%= hidden_field_tag 'stripeToken', '' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card mb-3">
+      <div class="card-block">
+        <h4 class="card-title">Yarn Palette</h4>
+        <h6 class="card-subtitle mb-2 text-muted"><%= @palette.name %></h6>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% @palette.temperature_ranges.order(high_temperature: :desc).each do |t| %>
+          <li class="list-group-item"><%= t.yarn.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-10">
+    <div class="card mb-3">
+      <div class="card-block">
+        <h4 class="card-title">Temperatures</h4>
+        <h6 class="card-subtitle mb-2 text-muted">Daily High and Low Temperatures</h6>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% if @units == :farhenheit %>
+          <li class="list-group-item"><%= link_to 'Show as Celsius', blanket_path(slug: @blanket.slug, units: 'celsius'), class: 'card-link' %></li>
+        <% else %>
+          <li class="list-group-item"><%= link_to 'Show as Farhenheit', blanket_path(slug: @blanket.slug, units: 'farhenheit'), class: 'card-link' %></li>
+        <% end %>
+      </ul>
+      <div class="card-block">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Low (<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
+              <th>High (<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
+              <th>Yarn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @blanket.days.order(date: :asc).each do |day| %>
+              <tr>
+                <td><%= day.date %></td>
+                <td><%= @units == :farhenheit ? day.low_temperature : ((day.low_temperature - 32) * 5.0 / 9.0).to_i %></td>
+                <td><%= @units == :farhenheit ? day.high_temperature : ((day.high_temperature - 32) * 5.0 / 9.0).to_i %></td>
+                <td><%= @palette.find_yarn_by_temperature(day.high_temperature).try(:name) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script>
+var handler = StripeCheckout.configure({
+  key: '<%= Rails.application.secrets.stripe_public_key %>',
+  allowRememberMe: false,
+  bitcoin: true,
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    document.getElementById('stripeToken').value = token.id;
+    document.getElementById('stripeForm').submit();
+  }
+});
+
+document.getElementById('checkout_btn').addEventListener('click', function(e) {
+  handler.open({
+    name: '<%= Rails.application.config.site_name %>',
+    description: '<%= @blanket.name %>',
+    amount: 500,
+  });
+  e.preventDefault();
+});
+
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   post 'temperature-blanket/find', to: 'blankets#index', as: :find_blankets
   post 'temperature-blanket', to: 'blankets#create', as: :create_blanket
   get 'temperature-blanket/:slug', to: 'blankets#show', as: :blanket
-  get 'temperature-blanket/:slug/checkout', to: 'blankets#checkout', as: :blanket_checkout
   post 'temperature-blanket/:slug/pay', to: 'blankets#pay', as: :blanket_pay
 
   namespace :admin do
