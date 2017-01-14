@@ -6,49 +6,53 @@
   }
 </style>
 
-<h1>New Temperature Blanket</h1>
-
+<h3>New Temperature Blanket</h3>
 <p>A temperature blanket is a customized blanket where each row represents the temperature of the day. You can use this tool to get all of the temperature data for your location and your date range.</p>
-
-<% if @blanket.errors.any? %>
-<ul>
-  <% @blanket.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-  <% end %>
-</ul>
-<% end %>
-
 <%= form_for @blanket do |f| %>
-  <div class="form-group">
-    <%= f.label :name, 'Blanket Name' %>
-    <%= f.text_field :name, {'class' => 'form-control', 'placeholder' => 'Name your blanket'} %>
+<% if @blanket.errors.any? %>
+  <ul>
+    <% @blanket.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name, 'Blanket Name' %>
+      <%= f.text_field :name, {'class' => 'form-control', 'placeholder' => 'Name your blanket'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, {'class' => 'form-control', 'placeholder' => 'Enter email', 'aria-describedby' => 'emailHelp'} %>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else. We will send you a link to your temperature blanket.</small>
+    </div>
+    <div class="form-group">
+      <%= f.label :start_date, 'Start Date' %>
+      <%= f.date_field :start_date, {'class' => 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :end_date, 'End Date' %>
+      <%= f.date_field :end_date, {'class' => 'form-control'} %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, {'class' => 'form-control', 'placeholder' => 'Enter email', 'aria-describedby' => 'emailHelp'} %>
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else. We will send you a link to your temperature blanket.</small>
-  </div>
-  <div class="form-group">
-    <%= f.label :start_date, 'Start Date' %>
-    <%= f.date_field :start_date, {'class' => 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :end_date, 'End Date' %>
-    <%= f.date_field :end_date, {'class' => 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <%= f.label :address, 'Location' %>
-    <%= f.text_field :address, {'class' => 'form-control', 'placeholder' => 'City, State', 'aria-describedby' => 'addressHelp'} %>
-    <small id="addressHelp" class="form-text text-muted">Enter the address, city, or zip code to use for temperature data</small>
-    <div id="map"></div>
-  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :address, 'Location' %>
+      <%= f.text_field :address, {'class' => 'form-control', 'placeholder' => 'City, State', 'aria-describedby' => 'addressHelp'} %>
+      <small id="addressHelp" class="form-text text-muted">Enter the address, city, or zip code to use for temperature data</small>
+      <div id="map"></div>
+    </div>
 
-  <%= f.hidden_field :custom_coordinates, value: false %>
-  <%= f.hidden_field :latitude %>
-  <%= f.hidden_field :longitude %>
-  <%= f.hidden_field :utc_offset %>
-
-  <%= f.submit 'Checkout', {'class' => 'btn btn-primary'} %>
+    <%= f.hidden_field :custom_coordinates, value: false %>
+    <%= f.hidden_field :latitude %>
+    <%= f.hidden_field :longitude %>
+    <%= f.hidden_field :utc_offset %>
+  </div>
+  <div class="col-md-12">
+    <%= f.submit 'Create', {'class' => 'btn btn-primary'} %>
+  </div>
+</div>
 <% end %>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnHesRk1A8VGL-1xLgbgeSR2IZzcjcLvs&libraries=places&callback=initMap" async defer>

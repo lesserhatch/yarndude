@@ -85,6 +85,7 @@ document.getElementById('checkout_btn').addEventListener('click', function(e) {
   handler.open({
     name: '<%= Rails.application.config.site_name %>',
     description: '<%= @blanket.name %>',
+    email: '<%= @blanket.email %>',
     amount: 500,
   });
   e.preventDefault();
