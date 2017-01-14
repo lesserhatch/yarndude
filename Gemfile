@@ -10,8 +10,8 @@ end
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
-# Use Passenger as the app server
-gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
+# Use Puma as the app server
+gem 'puma', '~> 2.16.0'
 # Use Sidekiq for background work
 gem 'sidekiq'
 # Use SCSS for stylesheets
