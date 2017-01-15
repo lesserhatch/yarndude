@@ -1,2 +1,18 @@
-<h1>Admin::Yarns#edit</h1>
-<p>Find me in app/views/admin/yarns/edit.html.erb</p>
+<div class="row">
+  <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <%= render partial: 'sidebar', locals: {active: :yarns} %>
+  </nav>
+  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <h1>Yarn</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card mb-3">
+          <div class="card-block">
+            <h4 class="card-title">Edit</h4>
+            <%= render partial: 'yarn_form', locals: {yarn: @yarn} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

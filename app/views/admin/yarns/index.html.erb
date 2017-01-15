@@ -4,6 +4,7 @@
   </nav>
   <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
     <h1>Yarns</h1>
+    <%= link_to 'New Yarn', [:new, :admin, :yarn], class: 'btn btn-primary mb-3' %>
     <table class="table table-sm table-striped">
       <thead>
         <tr>
@@ -13,7 +14,7 @@
       <tbody>
         <% @yarns.each do |y| %>
         <tr>
-          <td><%= link_to y.name, admin_yarn_path(y) %></td>
+          <td><%= link_to y.name, [:admin, y] %></td>
         </tr>
         <% end %>
       </tbody>
