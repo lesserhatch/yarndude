@@ -7,11 +7,16 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="card mb-3">
+          <% unless @yarn.color.blank? %>
+            <img class="card-img-top" data-src="holder.js/100px80?bg=<%= @yarn.color %>&amp;text=<%= !@yarn.short_name.blank? ? @yarn.short_name : Rails.application.config.site_name %>">
+          <% end %>
           <div class="card-block">
             <h4 class="card-title">Details</h4>
             <dl>
               <dt>Name</dt>
               <dd><%= @yarn.name %></dd>
+              <dt>Short Name</dt>
+              <dd><%= @yarn.short_name %></dd>
               <% unless @yarn.color.blank? %>
                 <dt>Color</dt>
                 <dd>#<%= @yarn.color.downcase %></dd>
