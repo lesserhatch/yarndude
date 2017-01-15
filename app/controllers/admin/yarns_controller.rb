@@ -43,6 +43,6 @@ class Admin::YarnsController < AdminController
   private
 
   def yarn_params
-    params.require(:yarn).permit(:name)
+    params.require(:yarn).permit(:name, :color)
   end
 end

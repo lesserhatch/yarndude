@@ -12,6 +12,10 @@
             <dl>
               <dt>Name</dt>
               <dd><%= @yarn.name %></dd>
+              <% unless @yarn.color.blank? %>
+                <dt>Color</dt>
+                <dd>#<%= @yarn.color.downcase %></dd>
+              <% end %>
             </dl>
             <p class="card-text"><small class="text-muted">Created <%= time_ago_in_words @yarn.created_at %> ago</small></p>
           </div>
