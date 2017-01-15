@@ -1,0 +1,23 @@
+<%= f.fields_for :temperature_ranges, temperature_range do |builder| %>
+  <div class="card mb-3">
+    <div class="card-block">
+      <%= builder.hidden_field :id %>
+      <fieldset class="form-group">
+        <%= builder.label :yarn %>
+        <%= builder.collection_select(:yarn_id, Yarn.all, :id, :name, {}, {'class' => 'form-control'}) %>
+      </fieldset>
+      <fieldset class="form-group">
+        <%= builder.label :high_temperature %>
+        <%= builder.text_field :high_temperature, {'class' => 'form-control'} %>
+      </fieldset>
+      <fieldset class="form-group">
+        <%= builder.label :low_temperature %>
+        <%= builder.text_field :low_temperature, {'class' => 'form-control'} %>
+      </fieldset>
+      <fieldset class="form-group">
+        <%= builder.label :_destroy, 'Delete' %>
+        <%= builder.check_box :_destroy, {'class' => 'form-control'} %>
+      </fieldset>
+    </div>
+  </div>
+<% end %>

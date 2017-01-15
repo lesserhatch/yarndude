@@ -1,6 +1,7 @@
 class Palette < ApplicationRecord
   has_many :temperature_ranges
   has_many :yarns, through: :temperature_ranges
+  accepts_nested_attributes_for :temperature_ranges, allow_destroy: true
 
   def find_yarn_by_temperature(temperature)
     return nil if temperature.nil?

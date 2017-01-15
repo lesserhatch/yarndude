@@ -1,0 +1,39 @@
+<div class="row">
+  <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <%= render partial: 'sidebar', locals: {active: :palettes} %>
+  </nav>
+  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <h1>Palette</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= form_for [:admin, @palette] do |f| %>
+          <div id="palette-card" class="card mb-3">
+            <div class="card-block">
+              <h4 class="card-title">Edit</h4>
+              <div class="form-group">
+                <%= f.label :name %>
+                <%= f.text_field :name, {'class' => 'form-control', 'placeholder' => 'Palette Name'} %>
+              </div>
+              <%= button_tag 'Add Temperature Range', type: 'button', class: 'btn btn-primary card-link', onClick: 'addTemperatureRange()' %>
+            </div>
+          </div>
+          <% @palette.temperature_ranges.each do |temperature_range| %>
+            <%= render partial: 'temperature_ranges_fields', locals: {f: f, temperature_range: temperature_range} %>
+          <% end %>
+          <div class="card mb-3">
+            <div class="card-block">
+              <div class="form-group">
+                <%= f.submit nil, {'class' => 'btn btn-primary'} %>
+              </div>
+            </div>
+          </div>
+        <script>
+          function addTemperatureRange() {
+            $('#palette-card').after('<%= j render partial: "temperature_ranges_fields", locals: {f: f, temperature_range: @palette.temperature_ranges.new}%>');
+          }
+        </script
+        <% end %>
+      </div>
+    </div>
+  </main>
+</div>

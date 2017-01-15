@@ -21,7 +21,9 @@ Rails.application.routes.draw do
     get 'blankets/:id/restart_job', to: 'blankets#restart_fetch_data_job', as: :restart_blanket_job
 
     # Palettes resources
-    resources :palettes
+    resources :palettes do
+      resources :temperature_ranges
+    end
 
     # Yarns resources
     resources :yarns
