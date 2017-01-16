@@ -38,4 +38,14 @@ body {
 
 .navbar-brand {
   font-family: 'Vibur', cursive;
+  background-color: rgba(0,0,0,0.8);
+  padding: 5px;
+  margin: 0;
+}
+
+.navbar-yarndude {
+  background: image-url("navbar.svg") center center no-repeat;
+  background-size: cover;
+}
+.navbar-brand {
 }
