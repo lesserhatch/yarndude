@@ -1,8 +1,17 @@
 class Admin::PalettesController < AdminController
   def create
+    @palette = Palette.new(palette_params)
+    if @palette.save
+      redirect_to [:admin, @palette]
+    else
+      render :new
+    end
   end
 
   def destroy
+    @palette = Palette.find(params[:id])
+    @palette.try(:destroy)
+    redirect_to admin_palettes_path
   end
 
   def edit
@@ -14,6 +23,7 @@ class Admin::PalettesController < AdminController
   end
 
   def new
+    @palette = Palette.new
   end
 
   def show

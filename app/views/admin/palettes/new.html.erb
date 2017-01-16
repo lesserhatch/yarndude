@@ -6,45 +6,20 @@
     <h1>Palette</h1>
     <div class="row">
       <div class="col-sm-6">
-        <div class="card mb-3">
-          <div class="card-block">
-            <h4 class="card-title">Details</h4>
-            <dl>
-              <dt>Name</dt>
-              <dd><%= @palette.name %></dd>
-            </dl>
-            <p class="card-text"><small class="text-muted">Created <%= time_ago_in_words @palette.created_at %> ago</small></p>
+        <%= form_for [:admin, @palette] do |f| %>
+          <div id="palette-card" class="card mb-3">
+            <div class="card-block">
+              <h4 class="card-title">New</h4>
+              <div class="form-group">
+                <%= f.label :name %>
+                <%= f.text_field :name, {'class' => 'form-control', 'placeholder' => 'Palette Name'} %>
+              </div>
+              <div class="form-group">
+                <%= f.submit nil, {'class' => 'btn btn-primary'} %>
+              </div>
+            </div>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><%= link_to 'Edit palette', edit_admin_blanket_path(@palette), class: 'card-link' %></li>
-            <li class="list-group-item"><%= link_to 'Delete palette', admin_blanket_path(@palette), method: :delete, class: 'card-link', data: { confirm: 'Are you sure?' } %></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card mb-3">
-          <div class="card-block">
-            <h4 class="card-title">Yarn</h4>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th class="text-right">Low</th>
-                  <th class="text-right">High</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @palette.temperature_ranges.order(high_temperature: :desc).each do |t| %>
-                <tr>
-                  <td><%= t.yarn.name %></td>
-                  <td class="text-right"><%= t.low_temperature %></td>
-                  <td class="text-right"><%= t.high_temperature %></td>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </main>

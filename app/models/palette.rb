@@ -1,5 +1,5 @@
 class Palette < ApplicationRecord
-  has_many :temperature_ranges
+  has_many :temperature_ranges, dependent: :destroy
   has_many :yarns, through: :temperature_ranges
   accepts_nested_attributes_for :temperature_ranges, allow_destroy: true
 
