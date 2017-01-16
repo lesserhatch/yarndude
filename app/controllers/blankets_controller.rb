@@ -25,6 +25,11 @@ class BlanketsController < ApplicationController
 
     @units = params[:units].present? ? params[:units].to_sym : :farhenheit
     @units = :farhenheit unless [:farhenheit, :celsius].include? @units
+
+    respond_to do |format|
+      format.html
+      format.svg
+    end
   end
 
   def pay

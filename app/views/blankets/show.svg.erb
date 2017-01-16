@@ -1,0 +1,16 @@
+<% unless @palette.nil? %>
+  <% x = 0; y = 0; w = 1; h = 10 %>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="<%= h * 2%>"
+    width="<%= @blanket.days.count * w %>"
+    version="1.1">
+    <% @blanket.days.order(date: :asc).each do |day| %>
+      <% high_color = @palette.find_yarn_by_temperature(day.high_temperature).try(:color) || '555555' %>
+      <% low_color  = @palette.find_yarn_by_temperature(day.low_temperature).try(:color)  || '555555' %>
+      <rect x="<%= x %>px" y="<%= y %>px" width="<%= w %>px" height="<%= h %>px" fill="#<%= high_color %>" shape-rendering="crispEdges" />
+      <rect x="<%= x %>px" y="<%= y + h %>px" width="<%= w %>px" height="<%= h %>px" fill="#<%= low_color %>" shape-rendering="crispEdges" />
+      <% x += w %>
+    <% end %>
+  </svg>
+<% end %>

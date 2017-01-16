@@ -1,7 +1,6 @@
 class Admin::YarnsController < AdminController
   def create
     @yarn = Yarn.new(yarn_params)
-    @yarn.color.gsub!(/#/, '')
     if @yarn.save
       redirect_to [:admin, @yarn]
     else
