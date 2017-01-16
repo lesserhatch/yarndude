@@ -13,6 +13,7 @@ class BlanketsController < ApplicationController
     if @blanket.save
       BlanketFetchDataJob.perform_later(@blanket, 10)
       redirect_to blanket_path(slug: @blanket.slug)
+      session[:email] = @blanket.email
     else
       render :new
     end
