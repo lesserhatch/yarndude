@@ -31,7 +31,7 @@ role :db,  %w{yarndude@yarndude.com}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
+set :sidekiq_config => File.join(shared_path, 'config', 'sidekiq.yml')
 
 # Custom SSH Options
 # ==================
