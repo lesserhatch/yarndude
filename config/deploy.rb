@@ -30,4 +30,4 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 # set :keep_releases, 5
 
 # Set RVM ruby version
-set :rvm_ruby_version, '2.3.3'
+set :rvm_ruby_version, '2.3.1'
