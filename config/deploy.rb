@@ -31,3 +31,6 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 
 # Set RVM ruby version
 set :rvm_ruby_version, '2.3.1'
+
+# Disable PTY
+set :pty, false
