@@ -8,14 +8,27 @@ class Admin::LoginsController < AdminController
   end
 
   def create
-    @manager = Manager.find_by_email(params[:email])
+    if Manager.count == 0
+      @manager = Manager.new
+      @manager.email = params[:email]
+      @manager.password = params[:password]
 
-    if @manager.try(:authenticate, params[:password])
-      session[:manager] = @manager.id
-      redirect_to admin_blankets_path
+      if @manager.save
+        session[:manager] = @manager.id
+        redirect_to admin_blankets_path
+      else
+        render 'new'
+      end
     else
-      @manager ||= Manager.new(:email => params[:email])
-      render 'new'
+      @manager = Manager.find_by_email(params[:email])
+
+      if @manager.try(:authenticate, params[:password])
+        session[:manager] = @manager.id
+        redirect_to admin_blankets_path
+      else
+        @manager ||= Manager.new(:email => params[:email])
+        render 'new'
+      end
     end
   end
 
