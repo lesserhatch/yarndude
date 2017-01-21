@@ -79,33 +79,35 @@
   </div>
 </div>
 
-<script src="https://checkout.stripe.com/checkout.js"></script>
-<script>
-var handler = StripeCheckout.configure({
-  key: '<%= Rails.application.secrets.stripe_public_key %>',
-  allowRememberMe: false,
-  bitcoin: true,
-  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-  locale: 'auto',
-  token: function(token) {
-    document.getElementById('stripeToken').value = token.id;
-    document.getElementById('stripeForm').submit();
-  }
-});
-
-document.getElementById('checkout_btn').addEventListener('click', function(e) {
-  handler.open({
-    name: '<%= Rails.application.config.site_name %>',
-    description: '<%= @blanket.name %>',
-    <% if session[:email] %>
-      email: '<%= session[:email] %>',
-    <% end %>
-    amount: 500,
+<% unless @blanket.paid? || @blanket.example %>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script>
+  var handler = StripeCheckout.configure({
+    key: '<%= Rails.application.secrets.stripe_public_key %>',
+    allowRememberMe: false,
+    bitcoin: true,
+    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+    locale: 'auto',
+    token: function(token) {
+      document.getElementById('stripeToken').value = token.id;
+      document.getElementById('stripeForm').submit();
+    }
   });
-  e.preventDefault();
-});
 
-window.addEventListener('popstate', function() {
-  handler.close();
-});
-</script>
+  document.getElementById('checkout_btn').addEventListener('click', function(e) {
+    handler.open({
+      name: '<%= Rails.application.config.site_name %>',
+      description: '<%= @blanket.name %>',
+      <% if session[:email] %>
+        email: '<%= session[:email] %>',
+      <% end %>
+      amount: 500,
+    });
+    e.preventDefault();
+  });
+
+  window.addEventListener('popstate', function() {
+    handler.close();
+  });
+  </script>
+<% end %>
