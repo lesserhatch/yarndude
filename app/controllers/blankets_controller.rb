@@ -28,6 +28,7 @@ class BlanketsController < ApplicationController
 
     @units = params[:units].present? ? params[:units].to_sym : :farhenheit
     @units = :farhenheit unless [:farhenheit, :celsius].include? @units
+    @units_display = (@units == :farhenheit) ? 'F' : 'C'
 
     respond_to do |format|
       format.html

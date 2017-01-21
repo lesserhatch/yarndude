@@ -56,8 +56,8 @@
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Low (&deg;<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
-                <th>High (&deg;<%= @units == :farhenheit ? 'F' : 'C' %>)</th>
+                <th>Low (&deg;<%= @units_display %>)</th>
+                <th>High (&deg;<%= @units_display %>)</th>
               </tr>
             </thead>
             <tbody>
@@ -66,11 +66,11 @@
                   <td><%= day.date %></td>
                   <td>
                     <%= @palette.find_yarn_by_temperature(day.low_temperature).try(:short_name) unless @palette.nil? %>
-                    (<%= @units == :farhenheit ? day.low_temperature : ((day.low_temperature - 32) * 5.0 / 9.0).to_i %>&deg;)
+                    (<%= day.low_temperature_in(@units) %>&deg;)
                   </td>
                   <td>
                     <%= @palette.find_yarn_by_temperature(day.high_temperature).try(:short_name) unless @palette.nil? %>
-                    (<%= @units == :farhenheit ? day.low_temperature : ((day.high_temperature - 32) * 5.0 / 9.0).to_i %>&deg;)
+                    (<%= day.high_temperature_in(@units) %>&deg;)
                 </tr>
               <% end %>
             </tbody>
