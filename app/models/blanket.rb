@@ -24,8 +24,8 @@ class Blanket < ApplicationRecord
     # Record the weather information for the day
     day = self.days.new
     day.date = date
-    day.high_temperature = forecast.daily.data[0].temperatureMax
-    day.low_temperature  = forecast.daily.data[0].temperatureMin
+    day.high_temperature = forecast.daily.data[0].temperatureMax.to_i unless forecast.daily.data[0].temperatureMax.blank?
+    day.low_temperature  = forecast.daily.data[0].temperatureMin.to_i unless forecast.daily.data[0].temperatureMin.blank?
 
     # Return the day if it saved correctly
     day.save ? day : nil
