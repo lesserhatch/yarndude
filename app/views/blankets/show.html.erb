@@ -13,8 +13,8 @@
         <h6 class="card-subtitle mb-2 text-muted">Blanket: <%= @blanket.name %></h6>
         <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>.</p>
         <% unless @blanket.paid? || @blanket.example %>
-          <p class="card-text">The pattern shown is a preview. Please use the checkout button below to get the the full temperature blanket pattern. Your purchase helps to cover the cost of the servers and temperature data used to generate your pattern.</p>
-          <%= button_tag 'Unlock Full Pattern', id: 'checkout_btn', class: 'btn btn-primary' %>
+          <p class="card-text">The pattern shown is a preview. Please use the checkout button below to get the the full temperature blanket pattern. Your purchase is less than a penny per day and helps cover our server and costs.</p>
+          <%= button_tag 'Purchase Pattern for ' + number_to_currency(@price_in_cents / 100), id: 'checkout_btn', class: 'btn btn-primary' %>
             <%= form_tag blanket_pay_path(@blanket.slug), id: 'stripeForm' do %>
               <%= hidden_field_tag 'stripeToken', '' %>
             <% end %>
@@ -101,7 +101,7 @@
       <% if session[:email] %>
         email: '<%= session[:email] %>',
       <% end %>
-      amount: 500,
+      amount: <%= @price_in_cents %>,
     });
     e.preventDefault();
   });

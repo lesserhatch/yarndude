@@ -1,4 +1,6 @@
 class BlanketsController < ApplicationController
+  PRICE_IN_CENTS = 300
+
   def index
     redirect_to action: 'new'
   end
@@ -22,6 +24,7 @@ class BlanketsController < ApplicationController
   def show
     @blanket = Blanket.find_by_slug(params[:slug])
     @palette = Palette.first
+    @price_in_cents = PRICE_IN_CENTS
 
     @units = params[:units].present? ? params[:units].to_sym : :farhenheit
     @units = :farhenheit unless [:farhenheit, :celsius].include? @units
@@ -37,7 +40,7 @@ class BlanketsController < ApplicationController
 
     if not @blanket.paid?
       # Amount in cents
-      amount = 500
+      amount = PRICE_IN_CENTS
 
       if @blanket.customer_id.nil?
         customer = Stripe::Customer.create(
