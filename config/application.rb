@@ -14,6 +14,9 @@ module Temperatureblanket
     config.site_name = 'Yarndude'
     config.active_job.queue_adapter = :sidekiq
     config.action_mailer.delivery_method = :aws_sdk
-    config.action_mailer.default_url_options = { host: 'yarndude.com' }
+    config.action_mailer.default_url_options = {
+      host: 'yarndude.com',
+      protocol: 'https'
+    }
   end
 end
