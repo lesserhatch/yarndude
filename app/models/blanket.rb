@@ -8,7 +8,7 @@ class Blanket < ApplicationRecord
 
   def fetched_dates
     # Return a Set of the all the days fetched
-    self.days.inject(Set.new []) { |dates, day| dates << day.date }
+    Set.new self.days.pluck(:date)
   end
 
   def fetch_date(date)
