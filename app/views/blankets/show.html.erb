@@ -100,7 +100,7 @@
   document.getElementById('checkout_btn').addEventListener('click', function(e) {
     handler.open({
       name: '<%= Rails.application.config.site_name %>',
-      description: '<%= @blanket.name %>',
+      description: '<%= @blanket.safe_name %>',
       <% if session[:email] %>
         email: '<%= session[:email] %>',
       <% end %>

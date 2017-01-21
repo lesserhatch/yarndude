@@ -6,6 +6,7 @@ class Blanket < ApplicationRecord
   validate :dates_cannot_span_more_than_one_year
   before_create :generate_slug
   before_create :generate_email_token
+  before_save :strip_name_whitespace
 
   def confirm_email(token)
     self.email_confirmed = true if (self.email_token == token)
@@ -64,6 +65,10 @@ class Blanket < ApplicationRecord
     end
   end
 
+  def safe_name
+    self.name.gsub(/[\\\/<>'"]/, '').gsub(/\s+/, ' ')
+  end
+
   private
 
   def end_date_cannot_be_in_the_future
@@ -90,6 +95,10 @@ class Blanket < ApplicationRecord
 
   def generate_email_token
     self.email_token = Base64.encode64(SecureRandom.uuid)[0..15]
+  end
+
+  def strip_name_whitespace
+    self.name.strip!
   end
 
 end
