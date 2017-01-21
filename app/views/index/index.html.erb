@@ -24,5 +24,20 @@
         <% end %>
       </ul>
     </div>
+    <div class="card mb-3">
+      <div class="card-block">
+        <h5 class="card-subtitle text-muted mb-2">Recent Blankets</h6>
+        <p class="card-text">Here are some recent temperature blanket patterns.</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% @recent_blankets.each do |b| %>
+          <a href="<%= blanket_path(slug: b.slug) %>">
+            <li class="list-group-item">
+              <img class="rounded" src="<%= blanket_path(slug: b.slug, format: :svg) %>" width="100%" height="20px" />
+            </li>
+          </a>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

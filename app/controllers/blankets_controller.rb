@@ -87,7 +87,8 @@ class BlanketsController < ApplicationController
       :custom_coordinates,
       :latitude,
       :longitude,
-      :utc_offset)
+      :utc_offset,
+      :private)
   end
 
 end
