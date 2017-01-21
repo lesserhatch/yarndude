@@ -1,6 +1,12 @@
 class BlanketsController < ApplicationController
   PRICE_IN_CENTS = 300
 
+  def confirm_email
+    @blanket = Blanket.find_by_slug(params[:slug])
+    @blanket.confirm_email(params[:token])
+    redirect_to blanket_path(slug: @blanket.slug)
+  end
+
   def index
     redirect_to action: 'new'
   end

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'temperature-blanket', to: 'blankets#create', as: :create_blanket
   get 'temperature-blanket/:slug', to: 'blankets#show', as: :blanket
   post 'temperature-blanket/:slug/pay', to: 'blankets#pay', as: :blanket_pay
+  get 'temperature-blanket/:slug/confirm_email/:token', to: 'blankets#confirm_email', as: :blanket_confirm_email
 
   namespace :admin do
     get '/', to: 'logins#new'

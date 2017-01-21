@@ -5,6 +5,13 @@ class Blanket < ApplicationRecord
   validate :start_date_is_before_end_date
   validate :dates_cannot_span_more_than_one_year
   before_create :generate_slug
+  before_create :generate_email_token
+
+  def confirm_email(token)
+    self.email_confirmed = true if (self.email_token == token)
+    self.save if self.email_confirmed
+    self.email_confirmed
+  end
 
   def fetched_dates
     # Return a Set of the all the days fetched
@@ -78,7 +85,11 @@ class Blanket < ApplicationRecord
   end
 
   def generate_slug
-    self.slug = Base64.encode64(SecureRandom.uuid)[0..12]
+    self.slug = Base64.encode64(SecureRandom.uuid)[0..15]
+  end
+
+  def generate_email_token
+    self.email_token = Base64.encode64(SecureRandom.uuid)[0..15]
   end
 
 end

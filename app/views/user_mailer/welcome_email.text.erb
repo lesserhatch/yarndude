@@ -5,6 +5,8 @@ We are preparing a preview of your custom blanket pattern at <%= link_to blanket
 
 If you have any questions about your blanket pattern, feel free to email me personally and I will help you out.
 
+*Please confirm your email by clicking the following link <%= link_to blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token), blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token) %>.*
+
 Thanks again for using <%= Rails.application.config.site_name %> and have a great day!
 
 Seth Charles

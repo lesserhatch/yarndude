@@ -3,6 +3,9 @@
   We are preparing a preview of your custom blanket pattern at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>. The full pattern costs $3 (less than a penny per day) and helps pay for server and data costs.
 </p>
 <p>
+  <strong>Please confirm your email by clicking the following link <%= link_to blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token), blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token) %>.</strong>
+</p>
+<p>
   If you have any questions about your blanket pattern, feel free to email me personally and I will help you out.
 </p>
 <p>Thanks again for using <%= Rails.application.config.site_name %> and have a great day!</p>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121164747) do
+ActiveRecord::Schema.define(version: 20170121210855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,20 +20,22 @@ ActiveRecord::Schema.define(version: 20170121164747) do
     t.string   "email"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "latitude",           precision: 10, scale: 6
-    t.decimal  "longitude",          precision: 10, scale: 6
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.decimal  "latitude",                      precision: 10, scale: 6
+    t.decimal  "longitude",                     precision: 10, scale: 6
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
     t.string   "timezone"
     t.string   "address"
     t.boolean  "custom_coordinates"
     t.boolean  "ready"
     t.integer  "utc_offset"
-    t.string   "slug"
+    t.string   "slug",               limit: 16
     t.string   "charge_id"
     t.string   "customer_id"
-    t.boolean  "example",                                     default: false
-    t.boolean  "private",                                     default: false
+    t.boolean  "example",                                                default: false
+    t.boolean  "private",                                                default: false
+    t.string   "email_token",        limit: 16
+    t.boolean  "email_confirmed",                                        default: false
     t.index ["slug"], name: "index_blankets_on_slug", unique: true, using: :btree
   end
 

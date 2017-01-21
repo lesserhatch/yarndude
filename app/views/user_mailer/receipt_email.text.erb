@@ -7,6 +7,10 @@ We are gathering all of the temperature data as quickly as possible. You will
 receive another email when your blanket pattern is ready. You will be able to
 view your blanket at <%= blanket_url(slug: @blanket.slug) %>.
 
+<% unless @blanket.email_confirmed %>
+*Please confirm your email by clicking the following link <%= link_to blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token), blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token) %>.*
+<% end %>
+
 Thanks for using <%= Rails.application.config.site_name %> and have a great day!
 
 Seth Charles

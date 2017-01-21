@@ -13,6 +13,11 @@
       receive another email when your blanket pattern is ready. You will be able to
       view your blanket at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>.
     </p>
+    <% unless @blanket.email_confirmed %>
+      <p>
+        <strong>Please confirm your email by clicking the following link <%= link_to blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token), blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token) %>.</strong>
+      </p>
+    <% end %>
     <p>Thanks for using <%= Rails.application.config.site_name %> and have a great day!</p>
     <p>Seth Charles</p>
   </body>
