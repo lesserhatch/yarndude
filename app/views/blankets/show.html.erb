@@ -28,12 +28,12 @@
         <div class="card-block">
           <h4 class="card-title">Yarn Palette</h4>
           <h6 class="card-subtitle mb-2 text-muted"><%= @palette.name %></h6>
-        </div>
-        <ul class="list-group list-group-flush">
           <% @palette.temperature_ranges.order(high_temperature: :desc).each do |t| %>
-            <li class="list-group-item"><img data-src="holder.js/100px50?bg=<%= t.yarn.color %>&amp;text=<%= t.yarn.name %>&amp;size=1pt"></li>
+            <div class="rounded text-center palette-yarn-block mb-2" style="background-color: #<%= t.yarn.color %>; color: #<%= t.yarn.color.to_i(16) > 0xffffff/2 ? '000000' : 'ffffff' %>">
+              <%= t.yarn.name %>
+            </div>
           <% end %>
-        </ul>
+        </div>
       </div>
     </div>
   <% end %>
