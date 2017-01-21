@@ -1,4 +1,9 @@
 class UserMailer < ApplicationMailer
+  def welcome_email(blanket)
+    @blanket = blanket
+    mail(to: @blanket.email, subject: 'Welcome to Yarndude!')
+  end
+
   def receipt_email(blanket)
     @blanket = blanket
     mail(to: @blanket.email, subject: 'Thank you for your purchase!')
