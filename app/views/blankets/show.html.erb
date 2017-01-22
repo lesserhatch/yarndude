@@ -29,6 +29,9 @@
               <%= hidden_field_tag 'stripeToken', '' %>
             <% end %>
         <% end %>
+        <% if @blanket.paid? && @blanket.ends_in_future? && !@blanket.email_confirmed %>
+          <p class="card-text">This pattern is still in progress. To get daily email updates, please click the link at the bottom of one the previous emails to confirm your email address.</p>
+        <% end %>
       </div>
     </div>
   </div>

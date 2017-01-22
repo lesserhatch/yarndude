@@ -19,6 +19,10 @@ class BlanketFetchDataJob < ApplicationJob
     # after the user's specified end date
     end_date = blanket.end_date if end_date > blanket.end_date
 
+    # Make sure the calculated end date is not
+    # past the current date
+    end_date = Date.today if end_date > Date.today
+
     already_fetched_dates = blanket.fetched_dates
 
     (start_date .. end_date).each do |date|
