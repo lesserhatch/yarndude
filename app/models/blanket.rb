@@ -34,15 +34,26 @@ class Blanket < ApplicationRecord
     Set.new self.days.pluck(:date)
   end
 
-  def fetch_date(date)
+  def fetch_date(date, max_retries = 3)
+
     # Validate the date we are about to fetch
     return nil unless date.between?(self.start_date, self.end_date)
 
     # Set the timezone to the blanket's timezone
     Time.zone = self.timezone
-    forecast = ForecastIO.forecast(self.latitude,
-                                   self.longitude,
-                                   time: Time.zone.parse(date.to_s).to_i)
+
+    retries = 0
+    begin
+      forecast = ForecastIO.forecast(self.latitude,
+                                     self.longitude,
+                                     time: Time.zone.parse(date.to_s).to_i)
+    rescue Faraday::SSLError
+      sleep 5
+      retry if (retries += 1) < max_retries
+    end
+
+    # Quit early if all retries failed
+    return nil if (retries == max_retries)
 
     # Record the weather information for the day
     day = self.days.new

@@ -14,13 +14,7 @@ class DailyFetchDataJob < ApplicationJob
       (start_date .. end_date).each do |date|
         # Skip this date if we already fetched it
         next if already_fetched_dates.include? date
-        begin
-          retries ||= 0
-          blanket.fetch_date(date)
-        rescue Faraday::SSLError
-          sleep 5
-          retry if (retries += 1) < 3
-        end
+        blanket.fetch_date(date)
       end
 
     end
