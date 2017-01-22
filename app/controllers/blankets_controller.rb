@@ -22,6 +22,7 @@ class BlanketsController < ApplicationController
       BlanketFetchDataJob.perform_later(@blanket, 10)
       session[:email] = @blanket.email
       UserMailer.welcome_email(@blanket).deliver_later
+      flash[:notice] = 'Gathering data to generate your pattern preview...'
       redirect_to blanket_path(slug: @blanket.slug)
     else
       render :new
@@ -75,6 +76,7 @@ class BlanketsController < ApplicationController
       BlanketFetchDataJob.perform_later @blanket
     end
 
+    flash[:notice] = 'Thank your for your purchase!'
     redirect_to action: 'show', slug: @blanket.slug
 
   rescue Stripe::CardError => e

@@ -10,11 +10,11 @@
 <p>A temperature blanket is a customized blanket where each row represents the temperature of the day. You can use this tool to get all of the temperature data for your location and your date range.</p>
 <%= form_for @blanket do |f| %>
 <% if @blanket.errors.any? %>
-  <ul>
-    <% @blanket.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
+  <% @blanket.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
 <% end %>
 <div class="row">
   <div class="col-lg-6">

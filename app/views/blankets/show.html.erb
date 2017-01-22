@@ -1,3 +1,13 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<% if flash[:error] %>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:error] %>
+  </div>
+<% end %>
 <% unless @palette.nil? %>
   <div class="row">
     <div class="col-sm-12">
