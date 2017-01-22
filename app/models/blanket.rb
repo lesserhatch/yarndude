@@ -7,6 +7,18 @@ class Blanket < ApplicationRecord
   before_create :generate_email_token
   before_save :strip_name_whitespace
 
+  def self.ending_after(date)
+    where('end_date > ?', date)
+  end
+
+  def self.ending_after_yesterday
+    ending_after(Date.today - 2.days)
+  end
+
+  def self.charged
+    where.not(charge_id: nil)
+  end
+
   def confirm_email(token)
     self.email_confirmed = true if (self.email_token == token)
     self.save if self.email_confirmed
