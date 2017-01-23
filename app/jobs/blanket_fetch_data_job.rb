@@ -21,7 +21,7 @@ class BlanketFetchDataJob < ApplicationJob
 
     # Make sure the calculated end date is not
     # past the current date
-    end_date = Date.today if end_date > Date.today
+    end_date = Date.yesterday if end_date > Date.yesterday
 
     already_fetched_dates = blanket.fetched_dates
 

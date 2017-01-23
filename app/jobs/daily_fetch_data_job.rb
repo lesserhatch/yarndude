@@ -7,7 +7,7 @@ class DailyFetchDataJob < ApplicationJob
     blankets.each do |blanket|
 
       start_date = blanket.start_date
-      end_date = Date.today if blanket.end_date > Date.today
+      end_date = Date.yesterday if blanket.end_date > Date.yesterday
 
       already_fetched_dates = blanket.fetched_dates
 
