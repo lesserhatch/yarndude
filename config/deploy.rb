@@ -1,6 +1,3 @@
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
-
 set :application, "yarndude"
 set :repo_url, "git@gitlab.com:swcharl/yarndude.git"
 
