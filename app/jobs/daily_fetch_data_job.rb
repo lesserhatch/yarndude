@@ -2,7 +2,7 @@ class DailyFetchDataJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    blankets = Blanket.charged.ending_after_yesterday
+    blankets = Blanket.charged.or(Blanket.examples).ending_after_yesterday
 
     blankets.each do |blanket|
 

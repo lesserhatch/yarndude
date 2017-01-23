@@ -19,6 +19,10 @@ class Blanket < ApplicationRecord
     where.not(charge_id: nil)
   end
 
+  def self.examples
+    where(example: true)
+  end
+
   def confirm_email(token)
     self.email_confirmed = true if (self.email_token == token)
     self.save if self.email_confirmed
