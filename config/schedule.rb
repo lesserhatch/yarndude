@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, :at => '8:40 pm' do
+every 1.day, :at => '4:00 am' do
   runner "DailyFetchDataJob.perform_later"
 end
