@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, :at => '4:00 am' do
+require File.expand_path('../config/environment', __dir__)
+
+every 1.day, :at => Time.zone.parse('6:00 am').localtime do
   runner "DailyFetchDataJob.perform_later"
 end
