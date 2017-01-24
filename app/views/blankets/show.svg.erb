@@ -2,8 +2,8 @@
   <% x = 0; y = 0; w = 1; h = 10 %>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    height="<%= h * 2%>"
-    width="<%= @blanket.days.count * w %>"
+    viewBox="0 0 <%= @blanket.days.count * w %> <%= h * 2 %>"
+    preserveAspectRatio="none"
     version="1.1">
     <% @blanket.days.order(date: :asc).each do |day| %>
       <% high_color = @palette.find_yarn_by_temperature(day.high_temperature).try(:color) || '555555' %>
