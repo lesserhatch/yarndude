@@ -1,10 +1,14 @@
 <%= @blanket.name %> is ready!
 ===============================================
 
-You can view your custom blanket pattern at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>.
+You can view your custom blanket pattern at <%= blanket_url(slug: @blanket.slug) %>.
+
+<% if @blanket.ends_in_future? %>
+The end date for your blanket pattern is in the future. We will continue adding data each day until your pattern is complete.
+<% end %>
 
 <% unless @blanket.email_confirmed %>
-*Please confirm your email by clicking the following link <%= link_to blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token), blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token) %>.*
+Please confirm your email by clicking the following link <%= blanket_confirm_email_url(slug: @blanket.slug, token: @blanket.email_token) %>
 <% end %>
 
 Thanks again for using <%= Rails.application.config.site_name %> and have a great day!

@@ -24,16 +24,17 @@ class BlanketFetchDataJob < ApplicationJob
     end_date = Date.yesterday if end_date > Date.yesterday
 
     already_fetched_dates = blanket.fetched_dates
+    new_days = []
 
     (start_date .. end_date).each do |date|
       # Skip this date if we already fetched it
       next if already_fetched_dates.include? date
-      blanket.fetch_date(date)
+      day = blanket.fetch_date(date)
+      new_days << day unless day.nil?
     end
 
-    if blanket.is_data_complete?
-      blanket.ready = true
-      blanket.save
+    # Make sure we got some data before sending
+    if !new_days.empty?
       UserMailer.ready_email(blanket).deliver_later
     end
   end
