@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121210855) do
+ActiveRecord::Schema.define(version: 20170124190235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20170121210855) do
     t.string   "timezone"
     t.string   "address"
     t.boolean  "custom_coordinates"
-    t.boolean  "ready"
     t.integer  "utc_offset"
     t.string   "slug",               limit: 16
     t.string   "charge_id"
