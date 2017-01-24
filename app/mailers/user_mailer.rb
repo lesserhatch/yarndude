@@ -13,4 +13,10 @@ class UserMailer < ApplicationMailer
     @blanket = blanket
     mail(to: @blanket.email, subject: 'Your blanket pattern is ready!')
   end
+
+  def daily_update_email(blanket, days)
+    @blanket = blanket
+    @days = days
+    mail(to: @blanket.email, subject: 'Your blanket pattern is ready!')
+  end
 end
