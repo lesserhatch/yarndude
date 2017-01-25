@@ -21,6 +21,6 @@
 
 require File.expand_path('../config/environment', __dir__)
 
-every 1.day, :at => Time.zone.parse('6:00 am').localtime do
+every 1.day, :at => '6:00 am' do
   runner "DailyFetchDataJob.perform_later"
 end
