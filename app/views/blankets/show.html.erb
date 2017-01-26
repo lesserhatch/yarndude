@@ -11,7 +11,7 @@
 <% unless @palette.nil? %>
   <div class="row">
     <div class="col-sm-12">
-      <img class="rounded mb-3" src="<%= blanket_path(slug: @blanket.slug, format: :svg) %>" height="50px" width="100%" />
+      <img class="rounded mb-3" src="<%= blanket_path(slug: @blanket.slug, palette: @palette.id, format: :svg) %>" height="50px" width="100%" />
     </div>
   </div>
 <% end %>
