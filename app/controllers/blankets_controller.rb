@@ -31,7 +31,15 @@ class BlanketsController < ApplicationController
 
   def show
     @blanket = Blanket.find_by_slug(params[:slug])
-    @palette = Palette.first
+
+    params[:palette] ||= 1
+
+    begin
+      @palette = Palette.find(params[:palette])
+    rescue
+      @palette = Palette.first
+    end
+
     @price_in_cents = PRICE_IN_CENTS
 
     @units = params[:units].present? ? params[:units].to_sym : :farhenheit
