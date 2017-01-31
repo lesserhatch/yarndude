@@ -20,7 +20,7 @@ class DailyFetchDataJob < ApplicationJob
       end
 
       if !new_days.empty? and blanket.email_confirmed
-        UserMailer.daily_update_email(blanket, new_days).deliver_later
+        # UserMailer.daily_update_email(blanket, new_days).deliver_later
       end
     end
   end
