@@ -18,5 +18,6 @@ module Temperatureblanket
       host: 'yarndude.com',
       protocol: 'https'
     }
+    config.free_mode = true
   end
 end

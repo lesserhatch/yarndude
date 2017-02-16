@@ -19,10 +19,18 @@ class BlanketsController < ApplicationController
     @blanket = Blanket.new(blanket_params)
 
     if @blanket.save
-      BlanketFetchDataJob.perform_later(@blanket, 10)
-      session[:email] = @blanket.email
-      UserMailer.welcome_email(@blanket).deliver_later
-      flash[:notice] = 'Gathering data to generate your pattern preview...'
+      if free_mode?
+        BlanketFetchDataJob.perform_later(@blanket)
+      else
+        BlanketFetchDataJob.perform_later(@blanket, 10)
+      end
+
+      if not free_mode?
+        session[:email] = @blanket.email
+        UserMailer.welcome_email(@blanket).deliver_later
+      end
+
+      flash[:notice] = 'Gathering data to generate your temperature blanket pattern'
       redirect_to blanket_path(slug: @blanket.slug)
     else
       render :new
@@ -54,6 +62,10 @@ class BlanketsController < ApplicationController
 
   def pay
     @blanket = Blanket.find_by_slug(params[:slug])
+
+    if free_mode?
+      redirect_to action: 'show', slug: @blanket.slug
+    end
 
     if not @blanket.paid?
       # Amount in cents

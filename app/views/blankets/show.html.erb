@@ -22,14 +22,14 @@
         <h4 class="card-title">Instructions</h4>
         <h6 class="card-subtitle mb-2 text-muted">Blanket: <%= @blanket.name %></h6>
         <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>.</p>
-        <% unless @blanket.paid? || @blanket.example %>
+        <% unless free_mode? || @blanket.paid? || @blanket.example %>
           <p class="card-text">The pattern shown is a preview. Please use the checkout button below to get the the full temperature blanket pattern. Your purchase is less than a penny per day and helps cover our server and data costs.</p>
           <%= button_tag 'Purchase Pattern for ' + number_to_currency(@price_in_cents / 100), id: 'checkout_btn', class: 'btn btn-primary' %>
             <%= form_tag blanket_pay_path(@blanket.slug), id: 'stripeForm' do %>
               <%= hidden_field_tag 'stripeToken', '' %>
             <% end %>
         <% end %>
-        <% if @blanket.paid? && @blanket.ends_in_future? && !@blanket.email_confirmed %>
+        <% if (free_mode? || @blanket.paid?) && @blanket.ends_in_future? && !@blanket.email_confirmed %>
           <p class="card-text">This pattern is still in progress. To get daily email updates, please click the link at the bottom of one the previous emails to confirm your email address.</p>
         <% end %>
       </div>
@@ -95,7 +95,7 @@
   </div>
 </div>
 
-<% unless @blanket.paid? || @blanket.example %>
+<% unless free_mode? || @blanket.paid? || @blanket.example %>
   <script src="https://checkout.stripe.com/checkout.js"></script>
   <script>
   var handler = StripeCheckout.configure({
