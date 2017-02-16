@@ -35,7 +35,7 @@ class BlanketFetchDataJob < ApplicationJob
 
     # Make sure we got some data before sending
     if !new_days.empty?
-      UserMailer.ready_email(blanket).deliver_later
+      UserMailer.ready_email(blanket).deliver_later unless free_mode?
     end
   end
 end
