@@ -1,7 +1,7 @@
 Welcome to <%= Rails.application.config.site_name %>!
 ===============================================
 
-We are preparing a preview of your custom blanket pattern at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>. The full pattern costs $3 (less than a penny per day) and helps pay for server and data costs.
+We are preparing a preview of your custom blanket pattern at <%= link_to blanket_url(slug: @blanket.slug), blanket_url(slug: @blanket.slug) %>. <% unless free_mode? %>The full pattern costs $3 (less than a penny per day) and helps pay for server and data costs.<% end %>
 
 If you have any questions about your blanket pattern, feel free to email me personally and I will help you out.
 

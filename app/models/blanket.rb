@@ -23,6 +23,10 @@ class Blanket < ApplicationRecord
     where(example: true)
   end
 
+  def self.all_confirmed
+    where(email_confirmed: true)
+  end
+
   def confirm_email(token)
     self.email_confirmed = true if (self.email_token == token)
     self.save if self.email_confirmed

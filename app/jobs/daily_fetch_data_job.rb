@@ -2,7 +2,11 @@ class DailyFetchDataJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    blankets = (Blanket.charged).or(Blanket.examples).ending_after_yesterday
+    if free_mode?
+      blankets = (Blanket.all_confirmed).ending_after_yesterday
+    else
+      blankets = (Blanket.charged).or(Blanket.examples).ending_after_yesterday
+    end
 
     blankets.each do |blanket|
 
@@ -19,8 +23,8 @@ class DailyFetchDataJob < ApplicationJob
         new_days << day unless day.nil?
       end
 
-      if !new_days.empty? and blanket.email_confirmed
-        # UserMailer.daily_update_email(blanket, new_days).deliver_later
+      if !free_mode? && !new_days.empty? && blanket.email_confirmed
+        UserMailer.daily_update_email(blanket, new_days).deliver_later
       end
     end
   end

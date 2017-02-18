@@ -3,7 +3,16 @@ class BlanketsController < ApplicationController
 
   def confirm_email
     @blanket = Blanket.find_by_slug(params[:slug])
-    @blanket.confirm_email(params[:token])
+    if @blanket.confirm_email(params[:token])
+      if free_mode?
+        flash[:notice] = 'Thank you for confirming your email! We are working on your full template now.'
+        BlanketFetchDataJob.perform_later @blanket
+      else
+        flash[:notice] = 'Thank you for confirming your email!'
+      end
+    else
+      flash[:error] = 'Sorry! There was a problem confirming your email. Please contact us for support.'
+    end
     redirect_to blanket_path(slug: @blanket.slug)
   end
 
@@ -19,18 +28,17 @@ class BlanketsController < ApplicationController
     @blanket = Blanket.new(blanket_params)
 
     if @blanket.save
+      BlanketFetchDataJob.perform_later(@blanket, 10)
+
+      session[:email] = @blanket.email
+      UserMailer.welcome_email(@blanket).deliver_later
+
       if free_mode?
-        BlanketFetchDataJob.perform_later(@blanket)
+        flash[:notice] = 'Gathering data to generate your temperature blanket pattern. Confirm your email to unlock the full pattern.'
       else
-        BlanketFetchDataJob.perform_later(@blanket, 10)
+        flash[:notice] = 'Gathering data to generate your temperature blanket pattern'
       end
 
-      if not free_mode?
-        session[:email] = @blanket.email
-        UserMailer.welcome_email(@blanket).deliver_later
-      end
-
-      flash[:notice] = 'Gathering data to generate your temperature blanket pattern'
       redirect_to blanket_path(slug: @blanket.slug)
     else
       render :new

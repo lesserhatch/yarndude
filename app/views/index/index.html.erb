@@ -9,21 +9,23 @@
     </div>
   </div>
   <div class="col-lg-6 col-sm-12">
-    <div class="card mb-3">
-      <div class="card-block">
-        <h5 class="card-subtitle text-muted mb-2">Examples</h6>
-        <p class="card-text">Here are some sample temperature blanket patterns. These patterns are free for everyone.</p>
+    <% unless free_mode? %>
+      <div class="card mb-3">
+        <div class="card-block">
+          <h5 class="card-subtitle text-muted mb-2">Examples</h6>
+          <p class="card-text">Here are some sample temperature blanket patterns. These patterns are free for everyone.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% @sample_blankets.each do |b| %>
+            <a href="<%= blanket_path(slug: b.slug) %>">
+              <li class="list-group-item">
+                <img class="rounded" src="<%= blanket_path(slug: b.slug, format: :svg) %>" width="100%" height="20px" />
+              </li>
+            </a>
+          <% end %>
+        </ul>
       </div>
-      <ul class="list-group list-group-flush">
-        <% @sample_blankets.each do |b| %>
-          <a href="<%= blanket_path(slug: b.slug) %>">
-            <li class="list-group-item">
-              <img class="rounded" src="<%= blanket_path(slug: b.slug, format: :svg) %>" width="100%" height="20px" />
-            </li>
-          </a>
-        <% end %>
-      </ul>
-    </div>
+    <% end %>
     <div class="card mb-3">
       <div class="card-block">
         <h5 class="card-subtitle text-muted mb-2">Recent Blankets</h6>
