@@ -34,10 +34,10 @@ class BlanketsController < ApplicationController
       UserMailer.welcome_email(@blanket).deliver_later
 
       if free_mode?
-        flash[:notice] = 'Gathering data to generate your temperature blanket pattern. Confirm your email to unlock the full pattern.'
-      else
-        flash[:notice] = 'Gathering data to generate your temperature blanket pattern'
+        flash[:warning] = 'Please check your email. Click the link to confirm your email and unlock the full pattern.'
       end
+
+      flash[:notice] = 'Gathering data to generate your temperature blanket pattern'
 
       redirect_to blanket_path(slug: @blanket.slug)
     else
@@ -61,6 +61,10 @@ class BlanketsController < ApplicationController
     @units = params[:units].present? ? params[:units].to_sym : :farhenheit
     @units = :farhenheit unless [:farhenheit, :celsius].include? @units
     @units_display = (@units == :farhenheit) ? 'F' : 'C'
+
+    if !@blanket.email_confirmed && free_mode?
+      flash[:warning] = 'Please check your email. Click the link to confirm your email and unlock the full pattern.'
+    end
 
     respond_to do |format|
       format.html

@@ -3,6 +3,11 @@
     <%= flash[:notice] %>
   </div>
 <% end %>
+<% if flash[:warning] %>
+  <div class="alert alert-warning" role="alert">
+    <%= flash[:warning] %>
+  </div>
+<% end %>
 <% if flash[:error] %>
   <div class="alert alert-danger" role="alert">
     <%= flash[:error] %>
@@ -22,11 +27,7 @@
         <h4 class="card-title">Instructions</h4>
         <h6 class="card-subtitle mb-2 text-muted">Blanket: <%= @blanket.name %></h6>
         <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>.</p>
-        <% if free_mode? %>
-          <% if !@blanket.email_confirmed %>
-            <p class="card-text">The pattern shown is a preview. Please confirm your email to unlock the full pattern!</p>
-          <% end %>
-        <% else %>
+        <% if not free_mode? %>
           <% unless @blanket.paid? || @blanket.example %>
             <p class="card-text">The pattern shown is a preview. Please use the checkout button below to get the the full temperature blanket pattern. Your purchase is less than a penny per day and helps cover our server and data costs.</p>
             <%= button_tag 'Purchase Pattern for ' + number_to_currency(@price_in_cents / 100), id: 'checkout_btn', class: 'btn btn-primary' %>
