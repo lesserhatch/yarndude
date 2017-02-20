@@ -26,7 +26,16 @@
       <div class="card-block">
         <h4 class="card-title">Instructions</h4>
         <h6 class="card-subtitle mb-2 text-muted">Blanket: <%= @blanket.name %></h6>
-        <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>.</p>
+        <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>. Each row represents the high or low temperature for the day. When your blanket is complete, you will have a year of temperatures that are unique to your date range and location.</p>
+        <% unless @palette.nil? %>
+          <p class="card-text">
+            The palette (<%= @palette.name %>) is an example. Depending on the yarn you have available, you might end up using different colors. You should make sure that all of the colors look good next to each other before selecting your colors. Most palettes will have 8 to 10 different colors to represent the temperature.
+          </p>
+        <% end %>
+        <p class="card-text">
+          You might consider using a yarn drum (like the one shown below) to hold your yarn. Most hold about eight skeins, so you can rotate out the hottest and coldest colors to make room if needed.
+          <a target="_blank"  href="https://www.amazon.com/gp/product/B003E06AQQ/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B003E06AQQ&linkCode=as2&tag=yarndude-20&linkId=f42c025b3ce97b676df70d3bda8efa0b"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=B003E06AQQ&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL160_&tag=yarndude-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=yarndude-20&l=am2&o=1&a=B003E06AQQ" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </p>
         <% if not free_mode? %>
           <% unless @blanket.paid? || @blanket.example %>
             <p class="card-text">The pattern shown is a preview. Please use the checkout button below to get the the full temperature blanket pattern. Your purchase is less than a penny per day and helps cover our server and data costs.</p>
