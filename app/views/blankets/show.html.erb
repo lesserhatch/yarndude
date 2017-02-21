@@ -26,7 +26,7 @@
       <div class="card-block">
         <h4 class="card-title">Instructions</h4>
         <h6 class="card-subtitle mb-2 text-muted">Blanket: <%= @blanket.name %></h6>
-        <p class="card-text">Your temperature blanket pattern covers days from <%= @blanket.start_date %> to <%= @blanket.end_date %>. Each row represents the high or low temperature for the day. When your blanket is complete, you will have a year of temperatures that are unique to your date range and location.</p>
+        <p class="card-text">Your temperature blanket pattern covers days from <strong><%= @blanket.start_date.strftime('%B %e, %Y') %></strong> to <strong><%= @blanket.end_date.strftime('%B %e, %Y') %></strong>. Each row represents the high or low temperature for the day. When your blanket is complete, you will have a year of temperatures that are unique to your date range and location.</p>
         <% unless @palette.nil? %>
           <p class="card-text">
             The palette (<%= @palette.name %>) is an example. We recommend using a US H/8 crochet hook like the <a href="https://www.amazon.com/Clover-1047-Amour-Crochet-5-0mm/dp/B008J140RQ/ref=as_li_ss_tl?ie=UTF8&qid=1487642591&sr=8-2&keywords=clover+crochet+hook&linkCode=ll1&tag=yarndude-20&linkId=26ebab9c83f50eed82dace60ec55c465">Clover Amour Crochet Hook</a> if you follow the example palette. Depending on the yarn you have available, you might end up using different colors. You should make sure that all of the colors look good next to each other before selecting your colors. Most palettes will have 8 to 10 different colors to represent the temperature.
