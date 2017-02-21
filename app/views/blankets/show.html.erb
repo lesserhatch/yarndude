@@ -60,8 +60,12 @@
           <h4 class="card-title">Yarn Palette</h4>
           <h6 class="card-subtitle mb-2 text-muted"><%= @palette.name %></h6>
           <% @palette.temperature_ranges.order(high_temperature: :desc).each do |t| %>
-            <div class="rounded text-center palette-yarn-block mb-2" style="background-color: #<%= t.yarn.color %>; color: #<%= t.yarn.color.to_i(16) > 0xffffff/2 ? '000000' : 'ffffff' %>">
-              <%= t.yarn.name %>
+            <div class="rounded text-center palette-yarn-block mb-2" style="background-color: #<%= t.yarn.color %>;">
+              <% if t.yarn.amazon_affiliate_url %>
+                <%= link_to t.yarn.name, t.yarn.amazon_affiliate_url, style: "color: #{t.yarn.color.to_i(16) > 0xffffff/2 ? '#000000' : '#ffffff'}" %>
+              <% else %>
+                <span style="color: <%= t.yarn.color.to_i(16) > 0xffffff/2 ? '#000000' : '#ffffff' %>"><%= t.yarn.name %></span>
+              <% end %>
             </div>
           <% end %>
         </div>

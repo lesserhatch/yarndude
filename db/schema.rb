@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124190235) do
+ActiveRecord::Schema.define(version: 20170221021942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,10 +74,11 @@ ActiveRecord::Schema.define(version: 20170124190235) do
 
   create_table "yarns", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.string   "color",      limit: 6
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "color",                limit: 6
     t.string   "short_name"
+    t.string   "amazon_affiliate_url"
   end
 
   add_foreign_key "days", "blankets"

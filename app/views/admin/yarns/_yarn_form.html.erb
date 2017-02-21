@@ -12,6 +12,10 @@
     <%= f.text_field :color, {'class' => 'form-control', 'maxlength' => 7 } %>
   </div>
   <div class="form-group">
+    <%= f.label :amazon_affiliate_url %>
+    <%= f.text_field :amazon_affiliate_url, {'class' => 'form-control'} %>
+  </div>
+  <div class="form-group">
     <%= f.submit nil, {'class' => 'btn btn-primary'} %>
   </div>
 <% end %>

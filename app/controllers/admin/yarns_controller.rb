@@ -43,6 +43,6 @@ class Admin::YarnsController < AdminController
   private
 
   def yarn_params
-    params.require(:yarn).permit(:name, :short_name, :color)
+    params.require(:yarn).permit(:name, :short_name, :color, :amazon_affiliate_url)
   end
 end

@@ -21,6 +21,12 @@
                 <dt>Color</dt>
                 <dd>#<%= @yarn.color.downcase %></dd>
               <% end %>
+              <dt>Amazon Affiliate URL</dt>
+              <% if @yarn.amazon_affiliate_url %>
+                <dd><%= link_to @yarn.amazon_affiliate_url, @yarn.amazon_affiliate_url %></dd>
+              <% else %>
+                <dd>None</dd>
+              <% end %>
             </dl>
             <p class="card-text"><small class="text-muted">Created <%= time_ago_in_words @yarn.created_at %> ago</small></p>
           </div>
